@@ -15,6 +15,10 @@ public class Entity {
         this.neuronNetwork = new NeuronNetwork(this, this.genome);
     }
 
+    public int getX() { return this.x; }
+
+    public int getY() { return this.y; }
+
     public NeuronNetwork getNeuronNetwork() {
         return this.neuronNetwork;
     }

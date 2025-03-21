@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Environment {
 
-    public final static Random random = new Random(0);
+    public final static Random random = new Random(6);
 
     private final int gridSize;
     private final int populationSize;
@@ -15,6 +15,10 @@ public class Environment {
         this.gridSize = gridSize;
         this.populationSize = populationSize;
         spawnGeneration();
+    }
+
+    public ArrayList<Entity> getEntities() {
+        return this.entities;
     }
 
     private void spawnGeneration() {
