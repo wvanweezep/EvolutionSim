@@ -11,13 +11,24 @@ public class Entity {
     public Entity(int x, int y) {
         this.x = x;
         this.y = y;
-        this.genome = Genome.randomGenome(8);
+        this.genome = Genome.randomGenome(12);
+        this.neuronNetwork = new NeuronNetwork(this, this.genome);
+    }
+
+    public Entity(Genome genome) {
+        this.x = Environment.random.nextInt(0, 100);
+        this.y = Environment.random.nextInt(0, 100);
+        this.genome = Genome.mutateGenome(genome);
         this.neuronNetwork = new NeuronNetwork(this, this.genome);
     }
 
     public int getX() { return this.x; }
 
     public int getY() { return this.y; }
+
+    public Genome getGenome() {
+        return this.genome;
+    }
 
     public NeuronNetwork getNeuronNetwork() {
         return this.neuronNetwork;

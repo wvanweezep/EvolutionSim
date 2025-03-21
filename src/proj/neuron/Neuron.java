@@ -4,7 +4,7 @@ import proj.Entity;
 
 public class Neuron {
 
-    protected double value;
+    protected double value = 2;
     protected final Entity entity;
 
     public Neuron(Entity entity) {

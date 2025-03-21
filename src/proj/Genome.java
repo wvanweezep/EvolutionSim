@@ -21,7 +21,7 @@ public record Genome(byte[] gen) {
         byte[] newGen = target.gen.clone();
         for (int byteIndex = 0; byteIndex < target.gen.length; byteIndex++)
             for (int bitIndex = 0; bitIndex < 8; bitIndex++)
-                if (Environment.random.nextInt(0, 100) > 95)
+                if (Environment.random.nextInt(0, 1000) > 995)
                     newGen[byteIndex] ^= (byte) (1 << bitIndex);
         return new Genome(newGen);
     }
@@ -45,7 +45,7 @@ public record Genome(byte[] gen) {
 
             b = bytes.read();
             int sign = (b >> 7 & 1) == 1 ? 1 : -1;
-            int weight = (int) ((double) (b & 0x7F) / 127) * 4;
+            int weight = Math.round((float) (b & 0x7F) / 127) * 4;
 
             end.connect(start, weight * sign);
         }

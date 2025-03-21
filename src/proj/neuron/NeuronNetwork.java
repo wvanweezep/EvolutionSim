@@ -20,15 +20,15 @@ public class NeuronNetwork {
     }
 
     public Neuron getInputNeuron(double fraction) {
-        return this.inputNeurons.get((int) (fraction * (inputNeurons.size() - 1)));
+        return this.inputNeurons.get(Math.round( (float) fraction * (inputNeurons.size() - 1)));
     }
 
     public CompNeuron getInternalNeuron(double fraction) {
-        return this.internalNeurons.get((int) (fraction * (internalNeurons.size() - 1)));
+        return this.internalNeurons.get(Math.round( (float) fraction * (internalNeurons.size() - 1)));
     }
 
     public OutputNeuron getOutputNeuron(double fraction) {
-        return this.outputNeurons.get((int) (fraction * (outputNeurons.size() - 1)));
+        return this.outputNeurons.get(Math.round( (float) fraction * (outputNeurons.size() - 1)));
     }
 
     private void initializeNeurons(Entity entity) {
@@ -54,7 +54,8 @@ public class NeuronNetwork {
         for (OutputNeuron outputNeuron : this.outputNeurons)
             result.add(new Pair<>(outputNeuron, outputNeuron.getValue()));
         double max = result.stream().mapToDouble(Pair::getSecond).max().getAsDouble();
-        result.stream().filter(n -> n.getSecond() == max).forEach(n -> n.getFirst().execute());
+        if (max == 0) return;
+        result.stream().filter(n -> n.getSecond() == max).findAny().get().getFirst().execute();
     }
 
     @Override

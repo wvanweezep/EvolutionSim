@@ -1,6 +1,7 @@
 package proj;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Environment {
@@ -37,7 +38,19 @@ public class Environment {
         }
 
         if (ticks++ > 100) {
+            entities.removeIf(entity -> entity.getX() < 99 || entity.getY() < 99);
+
             ticks = 0;
+            List<Genome> genomes = entities.stream().map(Entity::getGenome).toList();
+            entities.clear();
+            if (genomes.isEmpty()) {
+                spawnGeneration();
+            } else {
+                int size = entities.size();
+                for (int i = 0; i < populationSize - size; i++) {
+                    entities.add(new Entity(genomes.get((genomes.size()/(populationSize-size)) * i)));
+                }
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ public class FDDiNeuron extends Neuron {
 
     @Override
     protected double getValue() {
-        this.value = 4;
+        this.value = 0;
         return this.value;
     }
 }

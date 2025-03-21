@@ -16,7 +16,7 @@ public class Main extends JPanel implements ActionListener {
         setPreferredSize(new Dimension(500, 500));
         setBackground(Color.BLACK);
         env = new Environment(100, 100);
-        Timer timer = new Timer(100, this);
+        Timer timer = new Timer(3, this);
         timer.start();
     }
 

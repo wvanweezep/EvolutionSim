@@ -1,6 +1,8 @@
 package proj.neuron;
 
 import proj.Entity;
+import proj.neuron.output.MLoNeuron;
+import proj.neuron.output.MRoNeuron;
 import proj.util.Pair;
 
 import java.util.ArrayList;
