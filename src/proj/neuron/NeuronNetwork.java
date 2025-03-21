@@ -54,7 +54,7 @@ public class NeuronNetwork {
         for (OutputNeuron outputNeuron : this.outputNeurons)
             result.add(new Pair<>(outputNeuron, outputNeuron.getValue()));
         double max = result.stream().mapToDouble(Pair::getSecond).max().getAsDouble();
-        result.stream().filter(n -> n.getSecond() == max).findFirst().get().getFirst().execute();
+        result.stream().filter(n -> n.getSecond() == max).forEach(n -> n.getFirst().execute());
     }
 
     @Override

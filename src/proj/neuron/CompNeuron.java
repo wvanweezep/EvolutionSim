@@ -21,11 +21,7 @@ public class CompNeuron extends Neuron {
      * @param influence The excitation or inhibition weight of the connection.
      */
     public void connect(Neuron neuron, int influence) {
-        if (this.equals(neuron)) {
-            System.out.println("Neuron cannot be connected to itself: " + neuron);
-            return;
-        }
-        System.out.println("Adding neuron to: " + this.toString());
+        if (this.equals(neuron)) return;
         input.add(new Pair<>(neuron, influence));
     }
 
@@ -63,8 +59,10 @@ public class CompNeuron extends Neuron {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder("Internal <- ");
-        for (Pair<Neuron, Integer> neuron : this.input)
-            builder.append("\n  {").append(neuron.getFirst().toString()).append('}');
+        int i = 0;
+        for (Pair<Neuron, Integer> neuron : this.input) {
+            System.out.println(i++);
+            builder.append("\n  {").append(neuron.getFirst().toString()).append('}'); }
         return builder.toString();
     }
 }

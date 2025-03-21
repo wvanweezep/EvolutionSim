@@ -5,16 +5,18 @@ import java.util.Random;
 
 public class Environment {
 
-    public final static Random random = new Random(6);
+    public final static Random random = new Random();
 
     private final int gridSize;
     private final int populationSize;
     private final ArrayList<Entity> entities = new ArrayList<>();
 
     public Environment(int gridSize, int populationSize) {
+        System.out.println("Random: " + random);
         this.gridSize = gridSize;
         this.populationSize = populationSize;
         spawnGeneration();
+        for (Entity entity : entities) System.out.println(entity + "\n\n");
     }
 
     public ArrayList<Entity> getEntities() {
