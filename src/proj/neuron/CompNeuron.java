@@ -22,7 +22,25 @@ public class CompNeuron extends Neuron {
      */
     public void connect(Neuron neuron, int influence) {
         if (this.equals(neuron)) return;
+
+        if (neuron.getClass() == CompNeuron.class) {
+            CompNeuron compNeuron = (CompNeuron) neuron;
+            if (deepSearchConnections(compNeuron, this)) {
+                return;
+            }
+        }
+
         input.add(new Pair<>(neuron, influence));
+    }
+
+    public boolean deepSearchConnections(CompNeuron neuron, CompNeuron target) {
+        for (Pair<Neuron, Integer> neuronPair : neuron.input) {
+            if (neuronPair.getFirst().getClass() == CompNeuron.class) {
+                CompNeuron compNeuron = (CompNeuron) neuronPair.getFirst();
+                if (compNeuron == target) return true;
+                else if (deepSearchConnections(compNeuron, target)) return true;
+            }
+        } return false;
     }
 
     /**
@@ -60,9 +78,8 @@ public class CompNeuron extends Neuron {
     public String toString() {
         StringBuilder builder = new StringBuilder("Internal <- ");
         int i = 0;
-        for (Pair<Neuron, Integer> neuron : this.input) {
-            System.out.println(i++);
-            builder.append("\n  {").append(neuron.getFirst().toString()).append('}'); }
+        for (Pair<Neuron, Integer> neuron : this.input)
+            builder.append("\n  {").append(neuron.getFirst().toString()).append('}');
         return builder.toString();
     }
 }

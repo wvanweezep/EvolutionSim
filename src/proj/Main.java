@@ -8,13 +8,15 @@ import java.util.ArrayList;
 
 public class Main extends JPanel implements ActionListener {
 
+    private int ticks = 0;
+    private long prev = System.nanoTime();
     private final Environment env;
 
     public Main() {
         setPreferredSize(new Dimension(500, 500));
         setBackground(Color.BLACK);
-        env = new Environment(100, 5);
-        Timer timer = new Timer(500, this);
+        env = new Environment(100, 100);
+        Timer timer = new Timer(100, this);
         timer.start();
     }
 
@@ -30,7 +32,17 @@ public class Main extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         env.tick();
+        trackFPS();
         repaint();
+    }
+
+    private void trackFPS() {
+        ticks++;
+        if (System.nanoTime() - prev >= 1_000_000_000L) {
+            System.out.println("FPS: " + ticks);
+            ticks = 0;
+            prev = System.nanoTime();
+        }
     }
 
     public static void main(String[] args) {

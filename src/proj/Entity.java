@@ -11,7 +11,7 @@ public class Entity {
     public Entity(int x, int y) {
         this.x = x;
         this.y = y;
-        this.genome = Genome.randomGenome(10);
+        this.genome = Genome.randomGenome(8);
         this.neuronNetwork = new NeuronNetwork(this, this.genome);
     }
 

@@ -7,16 +7,15 @@ public class Environment {
 
     public final static Random random = new Random();
 
+    private int ticks;
     private final int gridSize;
     private final int populationSize;
     private final ArrayList<Entity> entities = new ArrayList<>();
 
     public Environment(int gridSize, int populationSize) {
-        System.out.println("Random: " + random);
         this.gridSize = gridSize;
         this.populationSize = populationSize;
         spawnGeneration();
-        for (Entity entity : entities) System.out.println(entity + "\n\n");
     }
 
     public ArrayList<Entity> getEntities() {
@@ -28,9 +27,17 @@ public class Environment {
             entities.add(new Entity(random.nextInt(0, gridSize), random.nextInt(0, gridSize)));
     }
 
+    private void respawnGeneration() {
+
+    }
+
     public void tick() {
         for (Entity entity : entities) {
             entity.tick();
+        }
+
+        if (ticks++ > 100) {
+            ticks = 0;
         }
     }
 }
