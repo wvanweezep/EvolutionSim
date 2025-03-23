@@ -5,12 +5,13 @@ import proj.util.Pair;
 
 public class OutputNeuron extends CompNeuron {
 
-    private String name;
-
     public OutputNeuron(Entity entity) {
         super(entity);
     }
 
+    /**
+     * The output action to execute on activation.
+     */
     public void execute() {}
 
     @Override

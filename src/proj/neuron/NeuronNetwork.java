@@ -33,10 +33,11 @@ public class NeuronNetwork {
 
     private void initializeNeurons(Entity entity) {
         // Input neurons
-        inputNeurons.add(new FDDiNeuron(entity));
-        inputNeurons.add(new FDUiNeuron(entity));
-        inputNeurons.add(new FDRiNeuron(entity));
-        inputNeurons.add(new FDLiNeuron(entity));
+        inputNeurons.add(new CMLiNeuron(entity));
+        inputNeurons.add(new CMRiNeuron(entity));
+        inputNeurons.add(new CMUiNeuron(entity));
+        inputNeurons.add(new CMDiNeuron(entity));
+        inputNeurons.add(new RDMiNeuron(entity));
 
         // Internal neurons
         for (int i = 0; i < 4; i++)
@@ -55,7 +56,7 @@ public class NeuronNetwork {
             result.add(new Pair<>(outputNeuron, outputNeuron.getValue()));
         double max = result.stream().mapToDouble(Pair::getSecond).max().getAsDouble();
         if (max == 0) return;
-        result.stream().filter(n -> n.getSecond() == max).findAny().get().getFirst().execute();
+        result.stream().filter(n -> n.getSecond() == max).forEach(n -> n.getFirst().execute());
     }
 
     @Override

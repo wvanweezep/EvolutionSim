@@ -15,7 +15,7 @@ public class Main extends JPanel implements ActionListener {
     public Main() {
         setPreferredSize(new Dimension(500, 500));
         setBackground(Color.BLACK);
-        env = new Environment(100, 100);
+        env = new Environment(100, 200);
         Timer timer = new Timer(3, this);
         timer.start();
     }
@@ -25,8 +25,9 @@ public class Main extends JPanel implements ActionListener {
         super.paintComponent(g);
         g.setColor(Color.WHITE);
         ArrayList<Entity> entities = env.getEntities();
-        for (Entity entity : entities)
-            g.fillRect(entity.getX() * 5, entity.getY() * 5, 5, 5);
+        for (Entity entity : entities) {
+            g.setColor(entity.generateColor());
+            g.fillRect(entity.getX() * 5, entity.getY() * 5, 5, 5); }
     }
 
     @Override
@@ -39,7 +40,7 @@ public class Main extends JPanel implements ActionListener {
     private void trackFPS() {
         ticks++;
         if (System.nanoTime() - prev >= 1_000_000_000L) {
-            System.out.println("FPS: " + ticks);
+            // System.out.println("FPS: " + ticks);
             ticks = 0;
             prev = System.nanoTime();
         }

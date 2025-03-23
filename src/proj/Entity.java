@@ -2,6 +2,10 @@ package proj;
 
 import proj.neuron.NeuronNetwork;
 
+import java.awt.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class Entity {
 
     private int x, y;
@@ -11,7 +15,7 @@ public class Entity {
     public Entity(int x, int y) {
         this.x = x;
         this.y = y;
-        this.genome = Genome.randomGenome(12);
+        this.genome = Genome.randomGenome(18);
         this.neuronNetwork = new NeuronNetwork(this, this.genome);
     }
 
@@ -22,6 +26,16 @@ public class Entity {
         this.neuronNetwork = new NeuronNetwork(this, this.genome);
     }
 
+    public Color generateColor() {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(genome.gen());  // 256-bit hash
+            return new Color(hash[0] & 0xFF, hash[1] & 0xFF, hash[2] & 0xFF);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public int getX() { return this.x; }
 
     public int getY() { return this.y; }
@@ -30,11 +44,8 @@ public class Entity {
         return this.genome;
     }
 
-    public NeuronNetwork getNeuronNetwork() {
-        return this.neuronNetwork;
-    }
-
     public void move(int dx, int dy) {
+        if (!Environment.instance.canMoveTo(x + dx, y + dy)) return;
         this.x += dx;
         this.y += dy;
     }
